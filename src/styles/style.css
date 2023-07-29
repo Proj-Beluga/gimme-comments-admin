@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -61,4 +61,91 @@ code {
 /* custom style */
 select {
   width: 100px !important;
+}
+
+.highlight-on-hover:hover {
+  background-color: #eee;
+}
+
+/* SCROLL BAR THEME */
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: #775da8;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #f8f9fa;
+  /* border-radius: 5px; */
+}
+
+/* SOCIAL ICONS */
+.wrapper {
+  color: #000;
+}
+
+.button-social {
+  float: left;
+  margin: 0 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-social span {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 40px;
+  margin-left: 5px;
+}
+
+.button-social:hover {
+  width: 160px;
+}
+
+.button-social:nth-child(1):hover .icon {
+  background: #e1306c;
+}
+
+.button-social:nth-child(2):hover .icon {
+  background: #0e76a8;
+}
+
+.button-social:nth-child(3):hover .icon {
+  background: #333;
+}
+
+.button-social:nth-child(1) span {
+  color: #e1306c;
+}
+
+.button-social:nth-child(2) span {
+  color: #0e76a8;
+}
+
+.button-social:nth-child(3) span {
+  color: #333;
+}
+
+.button-social .icon {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-social .icon i {
+  font-size: 25px;
+  line-height: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-social:hover i {
+  color: #fff;
 }

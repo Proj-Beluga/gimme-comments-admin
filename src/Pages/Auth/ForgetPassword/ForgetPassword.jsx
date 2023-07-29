@@ -1,7 +1,7 @@
-import { React, useState } from 'react'
-import Swal from 'sweetalert2'
-import axios from '../../../Utils/axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { React, useState } from 'react';
+import Swal from 'sweetalert2';
+import axios from '../../../Utils/axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -10,33 +10,33 @@ const Toast = Swal.mixin({
   timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
-})
+});
 
 const ForgetPassword = () => {
-  const navigate = useNavigate()
-  const [page, setPage] = useState(1)
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
   const [data, setData] = useState({
     email: '',
     otp: 0,
     new_password: '',
-  })
+  });
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (page === 1) {
-      generateOTP()
+      generateOTP();
     }
     if (page === 2) {
-      verifyOTP()
+      verifyOTP();
     }
     if (page === 3) {
-      updatePassword()
+      updatePassword();
     }
-  }
+  };
 
   const generateOTP = async () => {
     try {
@@ -44,24 +44,24 @@ const ForgetPassword = () => {
         '/api/v1/auth/forget-password/generate-otp',
         {
           email: data.email,
-        },
-      )
+        }
+      );
 
-      console.log(res.data)
+      console.log(res.data);
 
       Toast.fire({
         icon: 'success',
         title: res.data.msg,
-      })
-      setPage(2)
+      });
+      setPage(2);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       Toast.fire({
         icon: 'error',
         title: err.response.data ? err.response.data.msg : err.message,
-      })
+      });
     }
-  }
+  };
 
   const verifyOTP = async () => {
     try {
@@ -70,24 +70,24 @@ const ForgetPassword = () => {
         {
           email: data.email,
           otp: Number(data.otp),
-        },
-      )
+        }
+      );
 
-      console.log(res.data)
+      console.log(res.data);
 
       Toast.fire({
         icon: 'success',
         title: res.data.msg,
-      })
-      setPage(3)
+      });
+      setPage(3);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       Toast.fire({
         icon: 'error',
         title: err.response.data ? err.response.data.msg : err.message,
-      })
+      });
     }
-  }
+  };
 
   const updatePassword = async () => {
     try {
@@ -97,28 +97,31 @@ const ForgetPassword = () => {
           email: data.email,
           otp: Number(data.otp),
           new_password: data.new_password,
-        },
-      )
+        }
+      );
 
-      console.log(res.data)
+      console.log(res.data);
 
       Toast.fire({
         icon: 'success',
         title: res.data.msg,
-      })
-      navigate('/')
+      });
+      navigate('/');
     } catch (err) {
-      console.log(err)
+      console.log(err);
       Toast.fire({
         icon: 'error',
         title: err.response.data ? err.response.data.msg : err.message,
-      })
+      });
     }
-  }
+  };
 
   return (
     <>
       <form className="form-horizontal">
+        <Link to="/sign-in">
+          <button className="btn btn-light mb-2">Back</button>
+        </Link>
         <h2 style={{ color: '#775DA8' }}>Forget Password</h2>
         <h6>Please enter details</h6>
 
@@ -202,12 +205,8 @@ const ForgetPassword = () => {
           {page === 3 && 'Update Password'}
         </button>
       </form>
-
-      <Link to="/sign-in">
-        <button className="btn btn-link w-100 mt-2">Sign In</button>
-      </Link>
     </>
-  )
-}
+  );
+};
 
-export default ForgetPassword
+export default ForgetPassword;

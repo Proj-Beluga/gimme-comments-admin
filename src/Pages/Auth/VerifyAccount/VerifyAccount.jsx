@@ -1,7 +1,7 @@
-import { React, useState } from 'react'
-import Swal from 'sweetalert2'
-import axios from '../../../Utils/axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { React, useState } from 'react';
+import Swal from 'sweetalert2';
+import axios from '../../../Utils/axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -10,28 +10,28 @@ const Toast = Swal.mixin({
   timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
-})
+});
 
 const VerifyAccount = () => {
-  const navigate = useNavigate()
-  const [page, setPage] = useState(1)
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
   const [data, setData] = useState({
     email: '',
     otp: 0,
-  })
+  });
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (page === 1) {
-      generateOTP()
+      generateOTP();
     } else {
-      verifyOTP()
+      verifyOTP();
     }
-  }
+  };
 
   const generateOTP = async () => {
     try {
@@ -39,56 +39,59 @@ const VerifyAccount = () => {
         '/api/v1/auth/forget-password/generate-otp',
         {
           email: data.email,
-        },
-      )
+        }
+      );
 
-      console.log(res.data)
+      console.log(res.data);
 
       Toast.fire({
         icon: 'success',
         title: res.data.msg,
-      })
-      setPage(2)
+      });
+      setPage(2);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       Toast.fire({
         icon: 'error',
         title: err.response.data ? err.response.data.msg : err.message,
-      })
+      });
     }
-  }
+  };
 
   const verifyOTP = async () => {
     try {
       const res = await axios().post(
         '/api/v1/auth/account-verification/verify-account',
-        { email: data.email, otp: Number(data.otp) },
-      )
+        { email: data.email, otp: Number(data.otp) }
+      );
 
-      console.log(res)
+      console.log(res);
 
       Toast.fire({
         icon: 'success',
         title: res.data.msg,
-      })
+      });
 
-      navigate('/sign-in')
+      navigate('/sign-in');
     } catch (err) {
-      console.log(err)
+      console.log(err);
       Toast.fire({
         icon: 'error',
         title: err.response.data ? err.response.data.msg : err.message,
-      })
+      });
 
       if (err.response.data.msg === 'Email is already verified') {
-        navigate('/sign-in')
+        navigate('/sign-in');
       }
     }
-  }
+  };
 
   return (
     <>
       <form className="form-horizontal">
+        <Link to="/sign-in">
+          <button className="btn btn-light mb-2">Back</button>
+        </Link>
         <h2 style={{ color: '#775DA8' }}>Verify Account</h2>
         <h6>Please enter details</h6>
 
@@ -150,12 +153,8 @@ const VerifyAccount = () => {
           {page === 2 && 'Verify Account'}
         </button>
       </form>
-
-      <Link to="/sign-in">
-        <button className="btn btn-link w-100 mt-2">Sign In</button>
-      </Link>
     </>
-  )
-}
+  );
+};
 
-export default VerifyAccount
+export default VerifyAccount;

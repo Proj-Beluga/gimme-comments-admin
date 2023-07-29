@@ -1,22 +1,37 @@
-import React from 'react'
-import { Route, Routes, Navigate, Outlet } from 'react-router-dom'
-import { useStore } from '../Contexts/StoreContext'
+import React from 'react';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import { useStore } from '../Contexts/StoreContext';
 
-import Header from '../Layout/Header'
-import Menu from '../Layout//Menu'
-import Footer from '../Layout//Footer'
-import AuthLayout from '../Layout/AuthLayout'
-import Home from '../Pages/Home/Home'
-import Login from '../Pages/Auth/Login/Login'
-import SignUp from '../Pages/Auth/SignUp/SignUp'
-import VerifyAccount from '../Pages/Auth/VerifyAccount/VerifyAccount'
-import ForgetPassword from '../Pages/Auth/ForgetPassword/ForgetPassword'
-import Websites from '..//Pages/Websites/websites'
+import HomeNavigationBar from '../Components/NavigationBar';
+import HomeFooter from '../Components/Footer';
+import Header from '../Layout/Header';
+import Menu from '../Layout//Menu';
+import Footer from '../Layout//Footer';
+import AuthLayout from '../Layout/AuthLayout';
 
-import Profile from '../Pages/Profile/Profile'
+import Home from '../Pages/Home/Home';
+import Demo from '../Pages/Demo/Demo';
+
+import Login from '../Pages/Auth/Login/Login';
+import SignUp from '../Pages/Auth/SignUp/SignUp';
+import VerifyAccount from '../Pages/Auth/VerifyAccount/VerifyAccount';
+import ForgetPassword from '../Pages/Auth/ForgetPassword/ForgetPassword';
+import Websites from '../Pages/Websites/Websites';
+
+import Profile from '../Pages/Profile/Profile';
 
 export default function Routing() {
-  const { isLoading, setIsLoading } = useStore()
+  const { isLoading, setIsLoading } = useStore();
+
+  const WithNav = () => {
+    return (
+      <>
+        <HomeNavigationBar />
+        <Outlet />
+        <HomeFooter />
+      </>
+    );
+  };
 
   return (
     <div
@@ -56,7 +71,10 @@ export default function Routing() {
       </div>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<WithNav />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/demo" element={<Demo />} />
+        </Route>
         <Route element={<UnprotectedRoute />}>
           <Route element={<AuthLayout />}>
             <Route exact path="/sign-in" element={<Login />} />
@@ -76,11 +94,11 @@ export default function Routing() {
         <Route path="/*" element={<div>Not Found</div>} />
       </Routes>
     </div>
-  )
+  );
 }
 
 const ProtectedRoute = () => {
-  const access_token = localStorage.getItem('gimme_comment_access_token')
+  const access_token = localStorage.getItem('gimme_comment_access_token');
 
   if (access_token) {
     return (
@@ -90,22 +108,22 @@ const ProtectedRoute = () => {
         <Outlet />
         <Footer />
       </>
-    )
+    );
   } else {
-    return <Navigate to="/sign-in" />
+    return <Navigate to="/sign-in" />;
   }
-}
+};
 
 const UnprotectedRoute = () => {
-  const access_token = localStorage.getItem('gimme_comment_access_token')
+  const access_token = localStorage.getItem('gimme_comment_access_token');
 
   if (access_token) {
     return (
       <>
         <Navigate to="/websites" />
       </>
-    )
+    );
   } else {
-    return <Outlet />
+    return <Outlet />;
   }
-}
+};

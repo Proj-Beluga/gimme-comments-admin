@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import axios from "../../Utils/axios";
-import { useStore } from "../../Contexts/StoreContext";
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import axios from '../../Utils/axios';
+import { useStore } from '../../Contexts/StoreContext';
 
 const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
 });
 
@@ -23,8 +23,8 @@ const Website = () => {
   const [sortedData, setSortedData] = useState([]);
   const [paginatedData, setPaginatedData] = useState([]);
 
-  const [searchTermFilter, setSearchTermFilter] = useState("");
-  const [sortingOn, setSortingOn] = useState("website_title");
+  const [searchTermFilter, setSearchTermFilter] = useState('');
+  const [sortingOn, setSortingOn] = useState('website_title');
   const [sortingMethod, setSortingMethod] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   // const [rowsPerPage, setRowsPerPage] = useState(20);
@@ -42,7 +42,7 @@ const Website = () => {
     } catch (error) {
       console.log(error);
       Toast.fire({
-        icon: "error",
+        icon: 'error',
         title: error.response.data ? error.response.data.msg : error.message,
       });
       setIsLoading(false);
@@ -60,11 +60,11 @@ const Website = () => {
     const tempCourseCategoriesData = websiteData;
     const tempSearchTermFilterData = tempCourseCategoriesData.filter(
       (category) => {
-        if (searchTermFilter === "") {
+        if (searchTermFilter === '') {
           return true;
         } else {
           if (
-            category["website_name"]
+            category['website_name']
               .toLowerCase()
               .includes(searchTermFilter.toLowerCase())
           ) {
@@ -163,10 +163,10 @@ const Website = () => {
                 />
                 <ManageWebsiteModal fetchWebsiteData={fetchWebsiteData} />
               </div>
-              <div className="card-body" style={{ overflow: "auto" }}>
+              <div className="card-body" style={{ overflow: 'auto' }}>
                 <table
                   className="table table-hover"
-                  style={{ minWidth: "840px" }}
+                  style={{ minWidth: '840px' }}
                 >
                   <thead className="table-light">
                     <tr>
@@ -174,10 +174,10 @@ const Website = () => {
                       <th
                         scope="col"
                         className="w-100"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
                           setSortingMethod(!sortingMethod);
-                          setSortingOn("website_title");
+                          setSortingOn('website_title');
                         }}
                       >
                         Name
@@ -209,7 +209,7 @@ const Website = () => {
                   type="text"
                   disabled={true}
                   className="form-control"
-                  style={{ width: "100px", textAlign: "center" }}
+                  style={{ width: '100px', textAlign: 'center' }}
                   value={`${currentPage}/${
                     Math.ceil(websiteData.length / rowsPerPage) || 1
                   }`}
@@ -277,9 +277,9 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
   const CloseButton = useRef();
   const { setIsLoading } = useStore();
   const initialLocalData = {
-    website_name: "",
-    website_description: "",
-    website_url: "",
+    website_name: '',
+    website_description: '',
+    website_url: '',
   };
 
   const [localData, setLocalData] = useState(initialLocalData);
@@ -295,8 +295,8 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
       setIsLoading(true);
       const res = await axios().post(`/api/v1/websites`, localData);
       Toast.fire({
-        icon: "success",
-        title: "Website added",
+        icon: 'success',
+        title: 'Website added',
       });
       setLocalData(initialLocalData);
       CloseButton.current.click();
@@ -305,7 +305,7 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
     } catch (error) {
       console.log(error);
       Toast.fire({
-        icon: "error",
+        icon: 'error',
         title: error.response.data ? error.response.data.msg : error.message,
       });
       setIsLoading(false);
@@ -319,8 +319,8 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
       setIsLoading(true);
       await axios().patch(`/api/v1/websites/${data._id}`, localData);
       Toast.fire({
-        icon: "success",
-        title: "Website updated",
+        icon: 'success',
+        title: 'Website updated',
       });
 
       fetchWebsiteData();
@@ -329,7 +329,7 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
     } catch (error) {
       console.log(error);
       Toast.fire({
-        icon: "error",
+        icon: 'error',
         title: error.response.data ? error.response.data.msg : error.message,
       });
       setIsLoading(false);
@@ -338,20 +338,20 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
 
   const handleDeleteWebsite = async () => {
     Swal.fire({
-      icon: "warning",
-      title: "Are you sure?",
-      html: "<h6>This website will get permanently deleted</h6>",
+      icon: 'warning',
+      title: 'Are you sure?',
+      html: '<h6>This website will get permanently deleted</h6>',
       showCancelButton: true,
       confirmButtonText: `Delete`,
-      confirmButtonColor: "#D14343",
+      confirmButtonColor: '#D14343',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           setIsLoading(true);
           await axios().delete(`/api/v1/websites/${data._id}`);
           Toast.fire({
-            icon: "success",
-            title: "Website deleted",
+            icon: 'success',
+            title: 'Website deleted',
           });
           setTimeout(function () {
             fetchWebsiteData();
@@ -361,7 +361,7 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
         } catch (error) {
           console.log(error);
           Toast.fire({
-            icon: "error",
+            icon: 'error',
             title: error.response.data
               ? error.response.data.msg
               : error.message,
@@ -378,7 +378,7 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
         type="button"
         className="btn btn-dark ms-2 d-flex align-items-center"
         data-toggle="modal"
-        data-target={data ? `#${data._id}` : "#add-website-modal"}
+        data-target={data ? `#${data._id}` : '#add-website-modal'}
       >
         {data ? (
           <>
@@ -392,7 +392,7 @@ const ManageWebsiteModal = ({ data, fetchWebsiteData }) => {
       </button>
       <div
         className="modal fade"
-        id={data ? data._id : "add-website-modal"}
+        id={data ? data._id : 'add-website-modal'}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -529,7 +529,7 @@ const AddCodeModal = ({ data }) => {
       >
         {data ? (
           <>
-            <i class="fa fa-cloud-download" aria-hidden="true"></i>
+            <i className="fa fa-cloud-download" aria-hidden="true"></i>
           </>
         ) : (
           <>
@@ -575,8 +575,8 @@ const AddCodeModal = ({ data }) => {
                     navigator.clipboard.writeText(`
                   <div id="gimme-comments-root" data-gimme_comments_website_id="${data._id}"></div><script src="https://gimme-comments-server.onrender.com//initialize-gimme-comments.js"></script>`);
                     Toast.fire({
-                      icon: "success",
-                      title: "Code copied",
+                      icon: 'success',
+                      title: 'Code copied',
                     });
                   }}
                 >
@@ -590,10 +590,10 @@ const AddCodeModal = ({ data }) => {
                   &lt;div id="gimme-comments-root"
                   data-gimme_comments_website_id="{data._id}
                   "&gt;&lt;/div&gt;
-                  {"\n"}
+                  {'\n'}
                   &lt;script
                   src="https://gimme-comments-server.onrender.com//initialize-gimme-comments.js"&gt;&lt;/script&gt;
-                  {"\n"}
+                  {'\n'}
                 </code>
               </pre>
             </div>

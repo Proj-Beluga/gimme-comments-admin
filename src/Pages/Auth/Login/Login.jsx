@@ -1,7 +1,7 @@
-import { React, useState } from 'react'
-import Swal from 'sweetalert2'
-import axios from '../../../Utils/axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { React, useState } from 'react';
+import Swal from 'sweetalert2';
+import axios from '../../../Utils/axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -10,62 +10,65 @@ const Toast = Swal.mixin({
   timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
-})
+});
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (email === '')
-      return Toast.fire({ icon: 'error', title: 'Email required' })
+      return Toast.fire({ icon: 'error', title: 'Email required' });
     if (password === '')
-      return Toast.fire({ icon: 'error', title: 'Password required' })
+      return Toast.fire({ icon: 'error', title: 'Password required' });
 
     try {
       const res = await axios().post('/api/v1/auth/login', {
         email,
         password,
-      })
+      });
 
-      console.log(res.data)
+      console.log(res.data);
 
       Toast.fire({
         icon: 'success',
         title: 'Logged In',
-      })
+      });
 
       setTimeout(() => {
-        localStorage.setItem('gimme_comment_access_token', res.data.token)
-        window.location.reload()
-      }, 1000)
+        localStorage.setItem('gimme_comment_access_token', res.data.token);
+        window.location.reload();
+      }, 1000);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       if (err.response.data.msg === 'Email is not verified') {
         Toast.fire({
           icon: 'error',
           title: err.response.data ? err.response.data.msg : err.message,
-        })
-        navigate('/verify-account')
+        });
+        navigate('/verify-account');
       } else {
         Toast.fire({
           icon: 'error',
           title: err.response.data ? err.response.data.msg : err.message,
-        })
+        });
       }
     }
-  }
+  };
 
   return (
     <>
       <form className="form-horizontal">
+        <Link to="/">
+          <button className="btn btn-light mb-2">Home</button>
+        </Link>
         <h2 style={{ color: '#775DA8' }}>Login | Developer</h2>
         <h6>Please enter your log in details</h6>
         {/* <span>Login with : </span> */}
@@ -138,13 +141,8 @@ const Login = () => {
           Create new Account
         </button>
       </Link>
-      <hr style={{ width: '80vw', margin: '0 auto' }} />
-
-      <Link to="/">
-        <button className="btn btn-link w-100 mt-2">Go Home</button>
-      </Link>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

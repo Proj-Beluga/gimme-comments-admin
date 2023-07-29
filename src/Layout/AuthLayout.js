@@ -1,20 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-import loginPage from '../assets/loginPage.png'
+import loginPage from '../assets/loginPage.jpg';
 
 export default function AuthLayout() {
   return (
     <>
       <div
         style={{ height: '100vh', width: '100vw' }}
-        className="d-flex row m-0"
+        className="d-flex justify-content-center row m-0"
       >
         <img
           src={loginPage}
           alt="logo"
           style={imgStyle}
-          className=" d-none col-md-6 d-md-block"
+          className=" d-none col-md-6 d-md-block p-0"
         />
         <div
           style={{ width: '50%' }}
@@ -24,11 +24,11 @@ export default function AuthLayout() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 const imgStyle = {
   height: '100%',
   width: '50%',
   objectFit: 'cover',
-}
+};

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import HomePage from '../../assets/HomePage.png'
 import gimmecomments_logo from '../../assets/gimmecomments_logo.png'
-import HomeImage from '../../assets/My project-1.png'
+import Footer from '../Home/Footer'
 const access_token = localStorage.getItem('gimme_comment_access_token')
 
 const Home = () => {
@@ -48,7 +49,7 @@ const Home = () => {
 
       {/* Body  */}
       <img
-        src={HomeImage}
+        src={HomePage}
         alt="home"
         style={{ maxHeight: '80vh', width: '100%', objectFit: 'cover' }}
       />
@@ -68,13 +69,23 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Footer */}
-
       <div className="container mt-5 text-center">
         <button type="button" class="btn btn-primary" onClick={handleStart}>
           Get Started
         </button>
       </div>
+
+      {/* Demo  */}
+      <section className="demo container text-center bg-light mt-5">
+        <div
+          id="gimme-comments-root"
+          data-gimme_comments_website_id="64c4baf0c8924de473a6facb"
+        ></div>
+      </section>
+
+      {/* Footer */}
+
+      <Footer />
     </>
   )
 }

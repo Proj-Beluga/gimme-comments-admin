@@ -135,7 +135,7 @@ const Login = () => {
       <div className="my-2 text-center ">
         <Link to="/forget-password">Forget Password?</Link>
       </div>
-      <hr style={{ width: '80vw', margin: '0 auto' }} />
+      <hr style={{ width: '80%', margin: '0 auto' }} />
       <Link to="/sign-up">
         <button className="btn btn-primary w-100 mt-2">
           Create new Account

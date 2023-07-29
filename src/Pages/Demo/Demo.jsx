@@ -3,7 +3,7 @@ import React from 'react';
 const Demo = () => {
   return (
     <>
-      <section className=" container text-center mt-5 ">
+      <section className=" container mt-5 ">
         <h1 className="font-weight-bold my-3">Gimme Comments Demo</h1>
 
         <div className="bg-light text-dark p-4 rounded-4 shadow-lg">

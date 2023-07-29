@@ -43,7 +43,7 @@ const Login = () => {
       });
 
       setTimeout(() => {
-        localStorage.setItem('gimme_comment_access_token', res.data.token);
+        localStorage.setItem('access_token', res.data.token);
         window.location.reload();
       }, 1000);
     } catch (err) {

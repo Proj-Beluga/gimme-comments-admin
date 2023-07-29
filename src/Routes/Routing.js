@@ -98,7 +98,7 @@ export default function Routing() {
 }
 
 const ProtectedRoute = () => {
-  const access_token = localStorage.getItem('gimme_comment_access_token');
+  const access_token = localStorage.getItem('access_token');
 
   if (access_token) {
     return (
@@ -115,7 +115,7 @@ const ProtectedRoute = () => {
 };
 
 const UnprotectedRoute = () => {
-  const access_token = localStorage.getItem('gimme_comment_access_token');
+  const access_token = localStorage.getItem('access_token');
 
   if (access_token) {
     return (

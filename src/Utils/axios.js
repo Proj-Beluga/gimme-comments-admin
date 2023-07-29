@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
-let instance
+let instance;
 
 export default function getAxiosInstance() {
   if (!instance) {
-    let token = localStorage.getItem('gimme_comment_access_token')
+    let token = localStorage.getItem('access_token');
 
     // if (!token) return axios
 
@@ -13,22 +13,22 @@ export default function getAxiosInstance() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+    });
 
     //validate response
     instance.interceptors.response.use(
       (response) => {
-        return response
+        return response;
       },
       (error) => {
         if (error.response.status === 401) {
-          localStorage.removeItem('gimme_comment_access_token')
+          localStorage.removeItem('access_token');
 
-          window.location.reload()
+          window.location.reload();
         }
-        return Promise.reject(error)
-      },
-    )
+        return Promise.reject(error);
+      }
+    );
   }
-  return instance
+  return instance;
 }

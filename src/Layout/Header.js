@@ -1,14 +1,14 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import gimmecomments_logo from '../assets/gimmecomments_logo.png'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import gimmecomments_logo from '../assets/gimmecomments_logo.png';
 
 export default function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const logOut = () => {
-    localStorage.removeItem('gimme_comment_access_token')
-    window.location.reload()
-  }
+    localStorage.removeItem('access_token');
+    window.location.reload();
+  };
 
   return (
     <>
@@ -70,5 +70,5 @@ export default function Header() {
         </ul>
       </nav>
     </>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Menu() {
   const logOut = () => {
-    localStorage.removeItem('gimme_comment_access_token')
-    window.location.reload()
-  }
+    localStorage.removeItem('access_token');
+    window.location.reload();
+  };
 
   return (
     <>
@@ -68,5 +68,5 @@ export default function Menu() {
         </div>
       </aside>
     </>
-  )
+  );
 }

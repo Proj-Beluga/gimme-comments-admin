@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import gimmecomments_logo from '../assets/gimmecomments_logo.png';
 
-const access_token = localStorage.getItem('gimme_comment_access_token');
+const access_token = localStorage.getItem('access_token');
 
 const NavigationBar = () => {
   const navigate = useNavigate();
